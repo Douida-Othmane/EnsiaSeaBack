@@ -14,13 +14,12 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "nft_items")
+@Table(name = "nftItems")
 public class NFTitem {
 
     // foreign key : "PriceHistoryId" , "ListingsId"
     @Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "Id")
     private Long id;
 
     @Column(nullable = false, unique = true, length = 60)
