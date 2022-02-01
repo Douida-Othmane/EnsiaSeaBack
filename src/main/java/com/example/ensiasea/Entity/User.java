@@ -4,6 +4,9 @@ package com.example.ensiasea.Entity;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.List;
 
 /**
@@ -37,12 +40,15 @@ public class User {
     private String pricture;
 
     //onetoone onetomany manytomany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "itemOwnerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NFTitem> NFTitem;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offerMakerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Offers> offers;
-
+    
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "ownerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private Wallet wallet;
 

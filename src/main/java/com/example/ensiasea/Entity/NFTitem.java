@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 @Table(name = "nftItems")
@@ -30,9 +33,6 @@ public class NFTitem {
     @Column(nullable = false)
     private String category;
 
-    @Column(nullable = false, unique = true)
-    private Long OffersId;
-
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -41,11 +41,13 @@ public class NFTitem {
     @JoinColumn(name = "OwnerId")
     private User itemOwnerId;
 
-    //Link to the NFT item's price history
+    //Link to the NFT item's price history*
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "nftItem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private PriceHistory priceHistory;
 
     //Link to the NFT item's offers
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "nftItemId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Offers offer;
 
@@ -95,14 +97,6 @@ public class NFTitem {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public Long getOffersId() {
-        return OffersId;
-    }
-
-    public void setOffersId(Long offersId) {
-        OffersId = offersId;
     }
 
     public Date getDate() {
