@@ -8,20 +8,25 @@ import java.util.Date;
 
 public class PriceHistory {
 
-    // foreign keys : "price", "itemId"
+    // foreign keys : "itemId"
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long PriceHistoryID;
 
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false)
     private String PreviousOwner;
 
-    /*@JoinColumn(name = "item_id")
+    @Column(nullable = false)
+    private float price;
+
+    //Every NFT item has ONE Price history
+    @JoinColumn(name = "item_id")
     @OneToOne(fetch = FetchType.LAZY)
-    private NFTitem nftItem;*/
+    private NFTitem nftItem;
 
 
 
@@ -49,6 +54,21 @@ public class PriceHistory {
         this.PreviousOwner = PreviousOwner;
     }
 
+    public float getPrice() {
+        return price;
+    }
 
-    
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public NFTitem getNftItem() {
+        return nftItem;
+    }
+
+    public void setNftItem(NFTitem nftItem) {
+        this.nftItem = nftItem;
+    }
+
+
 }

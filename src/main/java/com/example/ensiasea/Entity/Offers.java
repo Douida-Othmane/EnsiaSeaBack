@@ -2,28 +2,29 @@ package com.example.ensiasea.Entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 
 @Entity
 @Table(name = "offers")
 public class Offers {
     
-    //foreign key : UserId, itemId, price, UserId
+    //foreign key : UserId, itemId, UserId
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long OfferId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User offerMakerId;
+
+    @JoinColumn(name = "item_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    private NFTitem nftItemId;
+
     @Column(nullable = false)
-    private Long statut;
+    private Boolean hasExpired;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
@@ -31,7 +32,10 @@ public class Offers {
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date ExDate;
+    private Date ExpirationDate;
+
+    @Column(nullable = false)
+    private float price;
 
     // getters & setters
 
@@ -43,14 +47,6 @@ public class Offers {
         this.OfferId = OfferId;
     }
 
-    public Long getStatut() {
-        return this.statut;
-    }
-
-    public void setStatut(Long statut) {
-        this.statut = statut;
-    }
-
     public Date getOfferDate() {
         return this.OfferDate;
     }
@@ -59,11 +55,43 @@ public class Offers {
         this.OfferDate = OfferDate;
     }
 
-    public Date getExDate() {
-        return this.ExDate;
+    public Date getExpirationDate() {
+        return this.ExpirationDate;
     }
 
-    public void setExDate(Date ExDate) {
-        this.ExDate = ExDate;
+    public void setExpirationDate(Date ExDate) {
+        this.ExpirationDate = ExDate;
+    }
+
+    public User getOfferMakerId() {
+        return offerMakerId;
+    }
+
+    public void setOfferMakerId(User offerMakerId) {
+        this.offerMakerId = offerMakerId;
+    }
+
+    public NFTitem getNftItemId() {
+        return nftItemId;
+    }
+
+    public void setNftItemId(NFTitem nftItemId) {
+        this.nftItemId = nftItemId;
+    }
+
+    public Boolean getHasExpired() {
+        return hasExpired;
+    }
+
+    public void setHasExpired(Boolean hasExpired) {
+        this.hasExpired = hasExpired;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 }

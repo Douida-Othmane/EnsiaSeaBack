@@ -2,14 +2,7 @@ package com.example.ensiasea.Entity;
 
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.util.List;
 
@@ -34,7 +27,7 @@ public class User {
     @Column(nullable = false, length = 60)
     private String password;
 
-    @Column(nullable = true, length = 500)
+    @Column(nullable = false, length = 500)
     private String description;
 
     @Column(nullable = false, length = 60)
@@ -44,9 +37,16 @@ public class User {
     private String pricture;
 
     //onetoone onetomany manytomany
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "itemOwnerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NFTitem> NFTitem;
-    // Getters and Setters 
+
+    @OneToMany(mappedBy = "offerMakerId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Offers> offers;
+
+    @OneToOne(mappedBy = "ownerId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Wallet wallet;
+
+    // Getters and Setters
 
 
     public Long getId() {
@@ -93,5 +93,44 @@ public class User {
         return NFTitem;
     }
 
+    public String getUsercode() {
+        return usercode;
+    }
 
+    public void setUsercode(String usercode) {
+        this.usercode = usercode;
+    }
+
+    public String getPricture() {
+        return pricture;
+    }
+
+    public void setPricture(String pricture) {
+        this.pricture = pricture;
+    }
+
+
+    public List<com.example.ensiasea.Entity.NFTitem> getNFTitem() {
+        return NFTitem;
+    }
+
+    public void setNFTitem(List<com.example.ensiasea.Entity.NFTitem> NFTitem) {
+        this.NFTitem = NFTitem;
+    }
+
+    public List<Offers> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(List<Offers> offers) {
+        this.offers = offers;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
 }
