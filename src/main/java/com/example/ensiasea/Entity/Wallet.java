@@ -1,13 +1,31 @@
 package com.example.ensiasea.Entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "wallets")
 public class Wallet {
     
     // foreign key : userId
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long WalletId;
+    
+    @Column(nullable = false, unique = true, length = 45)
     private float Currency;
+    
+    @Column(nullable = false, unique = true, length = 45)
     private float balance;
 
+
+    // getters & setters
 
 
     public Long getWalletId() {
