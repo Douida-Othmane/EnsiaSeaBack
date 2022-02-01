@@ -19,6 +19,11 @@ public class PriceHistory {
     @Column(nullable = false, unique = true, updatable = false)
     private String PreviousOwner;
 
+    /*@JoinColumn(name = "item_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    private NFTitem nftItem;*/
+
+
 
     public Long getPriceHistoryID() {
         return this.PriceHistoryID;

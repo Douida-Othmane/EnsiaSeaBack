@@ -44,7 +44,7 @@ public class User {
     private String pricture;
 
     //onetoone onetomany manytomany
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NFTitem> NFTitem;
     // Getters and Setters 
 
