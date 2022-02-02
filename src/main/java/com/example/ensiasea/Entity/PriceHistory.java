@@ -70,5 +70,14 @@ public class PriceHistory {
         this.nftItem = nftItem;
     }
 
-
+    @Override
+    public String toString() {
+        return "PriceHistory{" +
+                "PriceHistoryID=" + PriceHistoryID +
+                ", date=" + date +
+                ", PreviousOwner='" + PreviousOwner + '\'' +
+                ", price=" + price +
+                ", nftItem=" + nftItem +
+                '}';
+    }
 }

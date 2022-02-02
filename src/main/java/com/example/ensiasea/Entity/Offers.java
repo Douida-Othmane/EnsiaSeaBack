@@ -94,4 +94,17 @@ public class Offers {
     public void setPrice(float price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Offers{" +
+                "OfferId=" + OfferId +
+                ", offerMakerId=" + offerMakerId +
+                ", nftItemId=" + nftItemId +
+                ", hasExpired=" + hasExpired +
+                ", OfferDate=" + OfferDate +
+                ", ExpirationDate=" + ExpirationDate +
+                ", price=" + price +
+                '}';
+    }
 }

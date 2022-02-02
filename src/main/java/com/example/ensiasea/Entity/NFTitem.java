@@ -130,4 +130,20 @@ public class NFTitem {
     public void setOffer(Offers offer) {
         this.offer = offer;
     }
+
+    @Override
+    public String toString() {
+        return "NFTitem{" +
+                "id=" + id +
+                ", nft='" + nft + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                ", date=" + date +
+                ", itemOwnerId=" + itemOwnerId +
+                ", priceHistory=" + priceHistory +
+                ", offer=" + offer +
+                '}';
+    }
 }

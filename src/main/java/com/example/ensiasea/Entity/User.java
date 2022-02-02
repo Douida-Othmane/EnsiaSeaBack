@@ -37,7 +37,7 @@ public class User {
     private String usercode;
 
     @Column()
-    private String pricture;
+    private String picture;
 
     //onetoone onetomany manytomany
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -107,12 +107,12 @@ public class User {
         this.usercode = usercode;
     }
 
-    public String getPricture() {
-        return pricture;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setPricture(String pricture) {
-        this.pricture = pricture;
+    public void setPicture(String pricture) {
+        this.picture = pricture;
     }
 
 
@@ -138,5 +138,21 @@ public class User {
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", description='" + description + '\'' +
+                ", usercode='" + usercode + '\'' +
+                ", picture='" + picture + '\'' +
+                ", NFTitem=" + NFTitem +
+                ", offers=" + offers +
+                ", wallet=" + wallet +
+                '}';
     }
 }

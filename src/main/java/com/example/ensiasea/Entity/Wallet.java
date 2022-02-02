@@ -59,4 +59,14 @@ public class Wallet {
     public void setOwnerId(User ownerId) {
         this.ownerId = ownerId;
     }
+
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "WalletId=" + WalletId +
+                ", Currency='" + Currency + '\'' +
+                ", balance=" + balance +
+                ", ownerId=" + ownerId +
+                '}';
+    }
 }
