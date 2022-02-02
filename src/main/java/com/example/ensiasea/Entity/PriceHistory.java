@@ -11,73 +11,98 @@ public class PriceHistory {
     // foreign keys : "itemId"
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PriceHistoryID;
+    private Long priceHistoryID;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date transactionDate;
 
     @Column(nullable = false)
-    private String PreviousOwner;
+    private String previousOwner;
 
     @Column(nullable = false)
-    private float price;
+    private float priceHistoryPrice;
 
-    //Every NFT item has ONE Price history
+    // Every NFT item has ONE Price history
     @JoinColumn(name = "item_id")
     @OneToOne(fetch = FetchType.LAZY)
     private NFTitem nftItem;
 
-
-
+    /**
+     * @return Long return the priceHistoryID
+     */
     public Long getPriceHistoryID() {
-        return this.PriceHistoryID;
+        return priceHistoryID;
     }
 
-    public void setPriceHistoryID(Long PriceHistoryID) {
-        this.PriceHistoryID = PriceHistoryID;
+    /**
+     * @param priceHistoryID the priceHistoryID to set
+     */
+    public void setPriceHistoryID(Long priceHistoryID) {
+        this.priceHistoryID = priceHistoryID;
     }
 
-    public Date getDate() {
-        return this.date;
+    /**
+     * @return Date return the transactionDate
+     */
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    /**
+     * @param transactionDate the transactionDate to set
+     */
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
+    /**
+     * @return String return the previousOwner
+     */
     public String getPreviousOwner() {
-        return this.PreviousOwner;
+        return previousOwner;
     }
 
-    public void setPreviousOwner(String PreviousOwner) {
-        this.PreviousOwner = PreviousOwner;
+    /**
+     * @param previousOwner the previousOwner to set
+     */
+    public void setPreviousOwner(String previousOwner) {
+        this.previousOwner = previousOwner;
     }
 
-    public float getPrice() {
-        return price;
+    /**
+     * @return float return the priceHistoryPrice
+     */
+    public float getPriceHistoryPrice() {
+        return priceHistoryPrice;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    /**
+     * @param priceHistoryPrice the priceHistoryPrice to set
+     */
+    public void setPriceHistoryPrice(float priceHistoryPrice) {
+        this.priceHistoryPrice = priceHistoryPrice;
     }
 
+    /**
+     * @return NFTitem return the nftItem
+     */
     public NFTitem getNftItem() {
         return nftItem;
     }
 
+    /**
+     * @param nftItem the nftItem to set
+     */
     public void setNftItem(NFTitem nftItem) {
         this.nftItem = nftItem;
     }
 
     @Override
     public String toString() {
-        return "PriceHistory{" +
-                "PriceHistoryID=" + PriceHistoryID +
-                ", date=" + date +
-                ", PreviousOwner='" + PreviousOwner + '\'' +
-                ", price=" + price +
-                ", nftItem=" + nftItem +
-                '}';
+        return "PriceHistory [nftItem=" + nftItem + ", previousOwner=" + previousOwner + ", priceHistoryID="
+                + priceHistoryID + ", priceHistoryPrice=" + priceHistoryPrice + ", transactionDate=" + transactionDate
+                + "]";
     }
+
 }
