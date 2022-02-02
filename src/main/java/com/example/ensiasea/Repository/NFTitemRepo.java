@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface NFTitemRepo extends JpaRepository<NFTitem, Long> {
 
-    Optional<NFTitem> findNftItemById(Long id);
+    Optional<NFTitem> findNftItemByNftItemId(Long id);
 
-    void deleteNftItemById(Long id);
+    void deleteNftItemByNftItemId(Long id);
 }

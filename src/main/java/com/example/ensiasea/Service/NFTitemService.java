@@ -30,12 +30,12 @@ public class NFTitemService {
         return nftitemRepo.save(nftItem);
     }
 
-    public NFTitem findNftItemById(Long id){
-        return nftitemRepo.findNftItemById(id)
+    public NFTitem findNftItemByNftItemId(Long id){
+        return nftitemRepo.findNftItemByNftItemId(id)
                 .orElseThrow(() -> new NftItemNotFoundException("Nft item by id "+id+" was not found"));
     }
 
     public void deleteNftItem(Long id){
-        nftitemRepo.deleteNftItemById(id);
+        nftitemRepo.deleteNftItemByNftItemId(id);
     }
 }

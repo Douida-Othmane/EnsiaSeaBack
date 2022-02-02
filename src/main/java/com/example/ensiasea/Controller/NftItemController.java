@@ -25,8 +25,8 @@ public class NftItemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NFTitem> getNftItemById(@PathVariable("id") Long id){
-        NFTitem asset = nftItemService.findNftItemById(id);
+    public ResponseEntity<NFTitem> getNftItemByNftItemId(@PathVariable("id") Long id){
+        NFTitem asset = nftItemService.findNftItemByNftItemId(id);
         return new ResponseEntity<>(asset, HttpStatus.OK);
     }
 
