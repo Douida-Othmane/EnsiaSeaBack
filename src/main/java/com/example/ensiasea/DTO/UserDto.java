@@ -66,4 +66,17 @@ public class UserDto {
     public void setUserPicture(String userPicture) {
         this.userPicture = userPicture;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userId=" + userId +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userDescription='" + userDescription + '\'' +
+                ", userCode='" + userCode + '\'' +
+                ", userPicture='" + userPicture + '\'' +
+                '}';
+    }
 }

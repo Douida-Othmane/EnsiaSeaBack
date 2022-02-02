@@ -1,6 +1,7 @@
 package com.example.ensiasea.Controller;
 
 
+import com.example.ensiasea.DTO.UserDto;
 import com.example.ensiasea.Entity.User;
 import com.example.ensiasea.Service.UserService;
 
@@ -40,6 +41,7 @@ public class UserController {
     @PutMapping()
     public ResponseEntity<User> updateUser(@RequestBody User user){
         User updateUser = userService.updateUser(user);
+        System.out.println(user);
         return new ResponseEntity<>(updateUser,HttpStatus.CREATED);
     }
 

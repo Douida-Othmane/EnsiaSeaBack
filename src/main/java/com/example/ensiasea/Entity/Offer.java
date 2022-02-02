@@ -15,7 +15,7 @@ public class Offer {
     private Long offerId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "offerMkaerId")
     private User offerMakerId;
 
     @JoinColumn(name = "nftItemId")

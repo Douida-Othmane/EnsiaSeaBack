@@ -35,10 +35,10 @@ public class NFTitem {
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date CreationDate;
+    private Date creationDate;
 
     @ManyToOne
-    @JoinColumn(name = "itemOwnerId")
+    @JoinColumn(name = "nftItemOwnerId"/*,nullable = false*/)
     private User nftItemOwnerId;
 
     // Link to the NFT item's price history*
@@ -139,14 +139,14 @@ public class NFTitem {
      * @return Date return the CreationDate
      */
     public Date getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
     /**
      * @param CreationDate the CreationDate to set
      */
     public void setCreationDate(Date CreationDate) {
-        this.CreationDate = CreationDate;
+        this.creationDate = CreationDate;
     }
 
     /**
@@ -193,10 +193,25 @@ public class NFTitem {
 
     @Override
     public String toString() {
-        return "NFTitem [CreationDate=" + CreationDate + ", nftItemCategory=" + nftItemCategory
+        return "NFTitem [creationDate=" + creationDate + ", nftItemCategory=" + nftItemCategory
                 + ", nftItemDescription=" + nftItemDescription + ", nftItemId=" + nftItemId + ", nftItemName="
                 + nftItemName + ", nftItemOwnerId=" + nftItemOwnerId + ", nftItemPicture=" + nftItemPicture
                 + ", nftItemPrice=" + nftItemPrice + ", offers=" + offers + ", priceHistory=" + priceHistory + "]";
     }
 
+    public NFTitem() {
+    }
+
+    public NFTitem(Long nftItemId, String nftItemPicture, String nftItemName, String nftItemDescription, float nftItemPrice, String nftItemCategory, Date creationDate, User nftItemOwnerId, PriceHistory priceHistory, List<Offer> offers) {
+        this.nftItemId = nftItemId;
+        this.nftItemPicture = nftItemPicture;
+        this.nftItemName = nftItemName;
+        this.nftItemDescription = nftItemDescription;
+        this.nftItemPrice = nftItemPrice;
+        this.nftItemCategory = nftItemCategory;
+        this.creationDate = creationDate;
+        this.nftItemOwnerId = nftItemOwnerId;
+        this.priceHistory = priceHistory;
+        this.offers = offers;
+    }
 }
