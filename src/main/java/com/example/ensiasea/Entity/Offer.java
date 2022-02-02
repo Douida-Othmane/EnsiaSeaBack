@@ -12,7 +12,7 @@ public class Offer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long OfferId;
+    private Long offerId;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -42,14 +42,14 @@ public class Offer {
      * @return Long return the OfferId
      */
     public Long getOfferId() {
-        return OfferId;
+        return offerId;
     }
 
     /**
      * @param OfferId the OfferId to set
      */
     public void setOfferId(Long OfferId) {
-        this.OfferId = OfferId;
+        this.offerId = OfferId;
     }
 
     /**
@@ -138,7 +138,7 @@ public class Offer {
 
     @Override
     public String toString() {
-        return "Offer [ExpirationDate=" + ExpirationDate + ", OfferDate=" + OfferDate + ", OfferId=" + OfferId
+        return "Offer [ExpirationDate=" + ExpirationDate + ", OfferDate=" + OfferDate + ", OfferId=" + offerId
                 + ", hasExpired=" + hasExpired + ", offerMakerId=" + offerMakerId + ", offerNftItemId=" + offerNftItemId
                 + ", offerPrice=" + offerPrice + "]";
     }
