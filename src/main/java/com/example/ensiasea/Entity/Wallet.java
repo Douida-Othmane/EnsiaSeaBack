@@ -2,20 +2,19 @@ package com.example.ensiasea.Entity;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "wallets")
 public class Wallet {
-    
+
     // foreign key : userId
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long WalletId;
-    
+
     @Column(nullable = false, length = 45)
     private String Currency;
-    
+
     @Column(nullable = false, length = 45)
     private float balance;
 
@@ -23,10 +22,7 @@ public class Wallet {
     @OneToOne(fetch = FetchType.LAZY)
     private User ownerId;
 
-
-
     // getters & setters
-
 
     public Long getWalletId() {
         return this.WalletId;

@@ -1,7 +1,5 @@
 package com.example.ensiasea.Entity;
 
-
-
 import javax.persistence.*;
 
 import org.hibernate.annotations.OnDelete;
@@ -19,7 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
     @Column(nullable = false, unique = true, length = 45)
     private String email;
@@ -31,128 +29,173 @@ public class User {
     private String password;
 
     @Column(nullable = false, length = 500)
-    private String description;
+    private String userDescription;
 
     @Column(nullable = false, length = 60)
-    private String usercode;
+    private String userCode;
 
     @Column()
-    private String picture;
+    private String userPicture;
 
-    //onetoone onetomany manytomany
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "itemOwnerId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NFTitem> NFTitem;
+    @OneToMany(mappedBy = "nftItemOwnerId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NFTitem> NFTitems;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offerMakerId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Offers> offers;
-    
+    private List<Offer> offers;
+
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "ownerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private Wallet wallet;
 
     // Getters and Setters
 
-
-    public Long getId() {
-        return this.id;
+    /**
+     * @return Long return the userId
+     */
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
+    /**
+     * @return String return the email
+     */
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
+    /**
+     * @param email the email to set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * @return String return the username
+     */
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
+    /**
+     * @param username the username to set
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * @return String return the password
+     */
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
+    /**
+     * @param password the password to set
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getDescription() {
-        return this.description;
+    /**
+     * @return String return the userDescription
+     */
+    public String getUserDescription() {
+        return userDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * @param userDescription the userDescription to set
+     */
+    public void setUserDescription(String userDescription) {
+        this.userDescription = userDescription;
     }
 
-    public List<NFTitem> getNFTItems() {
-        return NFTitem;
+    /**
+     * @return String return the userCode
+     */
+    public String getUserCode() {
+        return userCode;
     }
 
-    public String getUsercode() {
-        return usercode;
+    /**
+     * @param userCode the userCode to set
+     */
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
-    public void setUsercode(String usercode) {
-        this.usercode = usercode;
+    /**
+     * @return String return the userPicture
+     */
+    public String getUserPicture() {
+        return userPicture;
     }
 
-    public String getPicture() {
-        return picture;
+    /**
+     * @param userPicture the userPicture to set
+     */
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
     }
 
-    public void setPicture(String pricture) {
-        this.picture = pricture;
+    /**
+     * @return List<NFTitem> return the NFTitems
+     */
+    public List<NFTitem> getNFTitems() {
+        return NFTitems;
     }
 
-
-    public List<com.example.ensiasea.Entity.NFTitem> getNFTitem() {
-        return NFTitem;
+    /**
+     * @param NFTitems the NFTitems to set
+     */
+    public void setNFTitems(List<NFTitem> NFTitems) {
+        this.NFTitems = NFTitems;
     }
 
-    public void setNFTitem(List<com.example.ensiasea.Entity.NFTitem> NFTitem) {
-        this.NFTitem = NFTitem;
-    }
-
-    public List<Offers> getOffers() {
+    /**
+     * @return List<Offer> return the offers
+     */
+    public List<Offer> getOffers() {
         return offers;
     }
 
-    public void setOffers(List<Offers> offers) {
+    /**
+     * @param offers the offers to set
+     */
+    public void setOffers(List<Offer> offers) {
         this.offers = offers;
     }
 
+    /**
+     * @return Wallet return the wallet
+     */
     public Wallet getWallet() {
         return wallet;
     }
 
+    /**
+     * @param wallet the wallet to set
+     */
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", description='" + description + '\'' +
-                ", usercode='" + usercode + '\'' +
-                ", picture='" + picture + '\'' +
-                ", NFTitem=" + NFTitem +
-                ", offers=" + offers +
-                ", wallet=" + wallet +
-                '}';
+        return "User [NFTitems=" + NFTitems + ", email=" + email + ", offers=" + offers + ", password=" + password
+                + ", userCode=" + userCode + ", userDescription=" + userDescription + ", userId=" + userId
+                + ", userPicture=" + userPicture + ", username=" + username + ", wallet=" + wallet + "]";
     }
+
 }

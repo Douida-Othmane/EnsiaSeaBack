@@ -1,12 +1,12 @@
 package com.example.ensiasea.Entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 
 @Entity
 @Table(name = "nftItems")
@@ -15,135 +15,188 @@ public class NFTitem {
     // foreign key : "PriceHistoryId" , "ListingsId" maghaykounouch
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long nftItemId;
 
     @Column()
-    private String nft;
+    private String nftItemPicture;
 
     @Column(nullable = false, unique = true, length = 60)
-    private String name;
+    private String nftItemName;
 
     @Column(nullable = false, length = 500)
-    private String description;
+    private String nftItemDescription;
 
     @Column(nullable = false)
-    private float price;
+    private float nftItemPrice;
 
-    //enum
+    // enum
     @Column(nullable = false)
-    private String category;
+    private String nftItemCategory;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date CreationDate;
 
     @ManyToOne
-    @JoinColumn(name = "OwnerId")
-    private User itemOwnerId;
+    @JoinColumn(name = "itemOwnerId")
+    private User nftItemOwnerId;
 
-    //Link to the NFT item's price history*
+    // Link to the NFT item's price history*
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "nftItem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private PriceHistory priceHistory;
 
-    //Link to the NFT item's offers
+    // Link to the NFT item's offers
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToOne(mappedBy = "nftItemId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Offers offer;
+    @OneToMany(mappedBy = "offerNftItemId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Offer> offers;
 
-    public Long getId() {
-        return id;
+    /**
+     * @return Long return the nftItemId
+     */
+    public Long getNftItemId() {
+        return nftItemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * @param nftItemId the nftItemId to set
+     */
+    public void setNftItemId(Long nftItemId) {
+        this.nftItemId = nftItemId;
     }
 
-    public String getNft() {
-        return nft;
+    /**
+     * @return String return the nftItemPicture
+     */
+    public String getNftItemPicture() {
+        return nftItemPicture;
     }
 
-    public void setNft(String nft) {
-        this.nft = nft;
+    /**
+     * @param nftItemPicture the nftItemPicture to set
+     */
+    public void setNftItemPicture(String nftItemPicture) {
+        this.nftItemPicture = nftItemPicture;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * @return String return the nftItemName
+     */
+    public String getNftItemName() {
+        return nftItemName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @param nftItemName the nftItemName to set
+     */
+    public void setNftItemName(String nftItemName) {
+        this.nftItemName = nftItemName;
     }
 
-    public String getDescription() {
-        return description;
+    /**
+     * @return String return the nftItemDescription
+     */
+    public String getNftItemDescription() {
+        return nftItemDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * @param nftItemDescription the nftItemDescription to set
+     */
+    public void setNftItemDescription(String nftItemDescription) {
+        this.nftItemDescription = nftItemDescription;
     }
 
-    public float getPrice() {
-        return price;
+    /**
+     * @return float return the nftItemPrice
+     */
+    public float getNftItemPrice() {
+        return nftItemPrice;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    /**
+     * @param nftItemPrice the nftItemPrice to set
+     */
+    public void setNftItemPrice(float nftItemPrice) {
+        this.nftItemPrice = nftItemPrice;
     }
 
-    public String getCategory() {
-        return category;
+    /**
+     * @return String return the nftItemCategory
+     */
+    public String getNftItemCategory() {
+        return nftItemCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    /**
+     * @param nftItemCategory the nftItemCategory to set
+     */
+    public void setNftItemCategory(String nftItemCategory) {
+        this.nftItemCategory = nftItemCategory;
     }
 
-    public Date getDate() {
-        return date;
+    /**
+     * @return Date return the CreationDate
+     */
+    public Date getCreationDate() {
+        return CreationDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    /**
+     * @param CreationDate the CreationDate to set
+     */
+    public void setCreationDate(Date CreationDate) {
+        this.CreationDate = CreationDate;
     }
 
-    public User getItemOwnerId() {
-        return itemOwnerId;
+    /**
+     * @return User return the nftItemOwnerId
+     */
+    public User getNftItemOwnerId() {
+        return nftItemOwnerId;
     }
 
-    public void setItemOwnerId(User itemOwnerId) {
-        this.itemOwnerId = itemOwnerId;
+    /**
+     * @param nftItemOwnerId the nftItemOwnerId to set
+     */
+    public void setNftItemOwnerId(User nftItemOwnerId) {
+        this.nftItemOwnerId = nftItemOwnerId;
     }
 
+    /**
+     * @return PriceHistory return the priceHistory
+     */
     public PriceHistory getPriceHistory() {
         return priceHistory;
     }
 
+    /**
+     * @param priceHistory the priceHistory to set
+     */
     public void setPriceHistory(PriceHistory priceHistory) {
         this.priceHistory = priceHistory;
     }
 
-    public Offers getOffer() {
-        return offer;
+    /**
+     * @return List<Offer> return the offers
+     */
+    public List<Offer> getOffers() {
+        return offers;
     }
 
-    public void setOffer(Offers offer) {
-        this.offer = offer;
+    /**
+     * @param offers the offers to set
+     */
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
     }
 
     @Override
     public String toString() {
-        return "NFTitem{" +
-                "id=" + id +
-                ", nft='" + nft + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", category='" + category + '\'' +
-                ", date=" + date +
-                ", itemOwnerId=" + itemOwnerId +
-                ", priceHistory=" + priceHistory +
-                ", offer=" + offer +
-                '}';
+        return "NFTitem [CreationDate=" + CreationDate + ", nftItemCategory=" + nftItemCategory
+                + ", nftItemDescription=" + nftItemDescription + ", nftItemId=" + nftItemId + ", nftItemName="
+                + nftItemName + ", nftItemOwnerId=" + nftItemOwnerId + ", nftItemPicture=" + nftItemPicture
+                + ", nftItemPrice=" + nftItemPrice + ", offers=" + offers + ", priceHistory=" + priceHistory + "]";
     }
+
 }
