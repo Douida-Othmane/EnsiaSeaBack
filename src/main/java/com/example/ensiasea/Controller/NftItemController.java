@@ -38,7 +38,7 @@ public class NftItemController {
     }
 
     @PutMapping()
-    public ResponseEntity<NFTitem> updateNftItem(@RequestBody NFTitem nftItem) {
+    public ResponseEntity<NFTitem> updateNftItem(@RequestBody NFTitemDTO nftItem) {
         NFTitem updatedAsset = nftItemService.updateNftItem(nftItem);
         return new ResponseEntity<>(updatedAsset, HttpStatus.CREATED);
     }

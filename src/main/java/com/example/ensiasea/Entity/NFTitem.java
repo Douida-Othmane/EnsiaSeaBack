@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.hibernate.annotations.OnDelete;
@@ -45,7 +46,7 @@ public class NFTitem {
 
     @ManyToOne
     @JoinColumn(name = "nftItemOwnerId"/* ,nullable = false */)
-    @JsonBackReference
+    @JsonBackReference(value = "usernftitems")
     private User nftItemOwnerId;
 
     // Link to the NFT item's price history*
@@ -56,6 +57,7 @@ public class NFTitem {
     // Link to the NFT item's offers
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offerNftItemId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "nftitemoffers")
     private List<Offer> offers;
 
 }

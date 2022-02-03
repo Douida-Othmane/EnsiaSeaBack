@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 
 @Entity
@@ -16,11 +18,13 @@ public class Offer {
     private Long offerId;
 
     @ManyToOne
-    @JoinColumn(name = "offerMkaerId")
+    @JoinColumn(name = "offerMakerId")
+    @JsonBackReference(value = "useroffers")
     private User offerMakerId;
 
     @JoinColumn(name = "nftItemId")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "nftitemoffers")
     private NFTitem offerNftItemId;
 
     @Column(nullable = false)
@@ -28,11 +32,11 @@ public class Offer {
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date OfferDate;
+    private Date offerDate;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date ExpirationDate;
+    private Date expirationDate;
 
     @Column(nullable = false)
     private float offerPrice;

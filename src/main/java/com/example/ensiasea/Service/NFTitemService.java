@@ -28,7 +28,7 @@ public class NFTitemService {
 
     public NFTitem addNftItem(NFTitemDTO nftItemDTO) {
         NFTitem nftItem = new NFTitem();
-        BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemOwnerId");
+        BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemId", "nftItemOwnerId");
         nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
         return nftItemRepo.save(nftItem);
     }
@@ -37,7 +37,11 @@ public class NFTitemService {
         return nftItemRepo.findAll();
     }
 
-    public NFTitem updateNftItem(NFTitem nftItem) {
+    public NFTitem updateNftItem(NFTitemDTO nftItemDTO) {
+
+        NFTitem nftItem = nftItemRepo.findNftItemByNftItemId(nftItemDTO.getNftItemId()).get();
+        BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemId", "nftItemOwnerId", "nftItemPicture", "creationDate");
+        nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
         return nftItemRepo.save(nftItem);
     }
 

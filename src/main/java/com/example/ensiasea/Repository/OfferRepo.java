@@ -7,10 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.util.*;
 
 @EnableJpaRepositories
-public interface OffersRepo extends JpaRepository<Offer, Long> {
+public interface OfferRepo extends JpaRepository<Offer, Long> {
 
-    Optional<Offer> findOffersByOfferId(Long OfferId);
-
-    void deleteOffersByOfferId(Long OfferId);
-
+    Optional<Offer> findOfferByOfferId(Long OfferId);
 }

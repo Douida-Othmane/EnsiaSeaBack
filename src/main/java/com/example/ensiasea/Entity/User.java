@@ -41,11 +41,12 @@ public class User {
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "nftItemOwnerId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "usernftitems")
     private List<NFTitem> nftitems;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offerMakerId")
+    @JsonManagedReference(value = "useroffers")
     private List<Offer> offers;
 
     @OnDelete(action = OnDeleteAction.CASCADE)

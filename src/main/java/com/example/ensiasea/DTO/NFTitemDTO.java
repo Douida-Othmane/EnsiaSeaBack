@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class NFTitemDTO {
+    private Long nftItemId;
     private String nftItemPicture;
     private String nftItemName;
     private String nftItemDescription;
