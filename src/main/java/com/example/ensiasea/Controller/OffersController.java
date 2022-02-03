@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.example.ensiasea.Service.OffersService;
 
-
-import com.example.ensiasea.Entity.Offers;
+import com.example.ensiasea.Entity.Offer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,21 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class OffersController {
 
     private final OffersService offersService;
-    
 
     public OffersController(OffersService offersService) {
         this.offersService = offersService;
     }
 
     @GetMapping()
-    public ResponseEntity<List<Offers>> getAllOffers() {
-         List<Offers> offers = offersService.findAllOffers();
-         return new ResponseEntity<>(offers, HttpStatus.OK);
+    public ResponseEntity<List<Offer>> getAllOffers() {
+        List<Offer> offers = offersService.findAllOffers();
+        return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<Offers> addOffer(@RequestBody Offers offer) {
-        Offers NewOffer= offersService.addOffer(offer);
+    public ResponseEntity<Offer> addOffer(@RequestBody Offer offer) {
+        Offer NewOffer = offersService.addOffer(offer);
         return new ResponseEntity<>(NewOffer, HttpStatus.CREATED);
     }
 

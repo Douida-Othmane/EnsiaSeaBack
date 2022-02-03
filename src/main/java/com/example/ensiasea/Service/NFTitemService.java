@@ -1,41 +1,52 @@
 package com.example.ensiasea.Service;
 
-
+import com.example.ensiasea.DTO.NFTitemDTO;
 import com.example.ensiasea.Entity.NFTitem;
 import com.example.ensiasea.Exception.NftItemNotFoundException;
 import com.example.ensiasea.Repository.NFTitemRepo;
+import com.example.ensiasea.Repository.UserRepo;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
+@Transactional
 public class NFTitemService {
-    private final NFTitemRepo nftitemRepo;
+    private final NFTitemRepo nftItemRepo;
+    private final UserService userService;
 
     @Autowired
-    public NFTitemService(NFTitemRepo nftitemRepo) {
-        this.nftitemRepo = nftitemRepo;
+    public NFTitemService(NFTitemRepo nftItemRepo, UserService userService) {
+        this.nftItemRepo = nftItemRepo;
+        this.userService = userService;
     }
 
-    public NFTitem addNftItem(NFTitem nftItem){
-        return nftitemRepo.save(nftItem);
+    public NFTitem addNftItem(NFTitemDTO nftItemDTO) {
+        NFTitem nftItem = new NFTitem();
+        BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemOwnerId");
+        nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
+        return nftItemRepo.save(nftItem);
     }
 
-    public List<NFTitem> findAllNftItems(){
-        return nftitemRepo.findAll();
+    public List<NFTitem> findAllNftItems() {
+        return nftItemRepo.findAll();
     }
 
-    public NFTitem updateNftItem(NFTitem nftItem){
-        return nftitemRepo.save(nftItem);
+    public NFTitem updateNftItem(NFTitem nftItem) {
+        return nftItemRepo.save(nftItem);
     }
 
-    public NFTitem findNftItemByNftItemId(Long id){
-        return nftitemRepo.findNftItemByNftItemId(id)
-                .orElseThrow(() -> new NftItemNotFoundException("Nft item by id "+id+" was not found"));
+    public NFTitem findNftItemByNftItemId(Long id) {
+        return nftItemRepo.findNftItemByNftItemId(id)
+                .orElseThrow(() -> new NftItemNotFoundException("Nft item by id " + id + " was not found"));
     }
 
-    public void deleteNftItem(Long id){
-        nftitemRepo.deleteNftItemByNftItemId(id);
+    public void deleteNftItem(Long id) {
+        nftItemRepo.deleteNftItemByNftItemId(id);
     }
 }
