@@ -2,8 +2,9 @@ package com.example.ensiasea.Entity;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users")
+@JsonInclude(value = Include.NON_NULL)
 public class User {
 
     @Id
