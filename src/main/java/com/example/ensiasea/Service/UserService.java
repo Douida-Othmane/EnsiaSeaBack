@@ -1,13 +1,12 @@
 package com.example.ensiasea.Service;
 
 import com.example.ensiasea.Entity.User;
+import com.example.ensiasea.Exception.ApiRequestException;
 import com.example.ensiasea.Exception.UserNotFoundException;
 import com.example.ensiasea.Repository.UserRepo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,8 +18,13 @@ public class UserService {
     }
 
     public User addUser(User user) {
-        user.setUserCode(UUID.randomUUID().toString());
-        return userRepo.save(user);
+        try {
+            user.setUserCode(UUID.randomUUID().toString());
+            return userRepo.save(user);
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Creating User", exception.getMessage());
+        }
+
     }
 
     public List<User> findAllUsers() {

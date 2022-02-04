@@ -1,8 +1,8 @@
 package com.example.ensiasea.Controller;
 
 import com.example.ensiasea.Entity.User;
+import com.example.ensiasea.Response.UserResponse;
 import com.example.ensiasea.Service.UserService;
-import com.example.ensiasea.utils.UserResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

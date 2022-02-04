@@ -1,4 +1,4 @@
-package com.example.ensiasea.utils;
+package com.example.ensiasea.Response;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,6 +2,7 @@ package com.example.ensiasea.Service;
 
 import com.example.ensiasea.DTO.NFTitemDTO;
 import com.example.ensiasea.Entity.NFTitem;
+import com.example.ensiasea.Exception.ApiRequestException;
 import com.example.ensiasea.Exception.NftItemNotFoundException;
 import com.example.ensiasea.Repository.NFTitemRepo;
 import com.example.ensiasea.Repository.UserRepo;
@@ -27,10 +28,15 @@ public class NFTitemService {
     }
 
     public NFTitem addNftItem(NFTitemDTO nftItemDTO) {
-        NFTitem nftItem = new NFTitem();
-        BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemId", "nftItemOwnerId");
-        nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
-        return nftItemRepo.save(nftItem);
+        try {
+            NFTitem nftItem = new NFTitem();
+            BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemId", "nftItemOwnerId");
+            nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
+            return nftItemRepo.save(nftItem);
+        } catch (Exception exception) {
+
+            throw new ApiRequestException("Error While Creating Nft Item");
+        }
     }
 
     public List<NFTitem> findAllNftItems() {
