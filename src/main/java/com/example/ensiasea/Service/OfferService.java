@@ -6,7 +6,6 @@ import com.example.ensiasea.DTO.OfferDTO;
 import com.example.ensiasea.Entity.Offer;
 import com.example.ensiasea.Repository.OfferRepo;
 import com.example.ensiasea.Exception.ApiRequestException;
-import com.example.ensiasea.Exception.OfferNotFoundException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

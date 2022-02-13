@@ -1,8 +1,10 @@
 package com.example.ensiasea.Exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class ApiRequestException extends RuntimeException {
     private String additionalMessage;
 
