@@ -56,7 +56,7 @@ public class NFTitemService {
             nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
             return nftItemRepo.save(nftItem);
         } catch (Exception exception) {
-            throw new ApiRequestException("Error While Updating All NftItems", exception.getMessage());
+            throw new ApiRequestException("Error While Updating NftItem", exception.getMessage());
         }
 
     }

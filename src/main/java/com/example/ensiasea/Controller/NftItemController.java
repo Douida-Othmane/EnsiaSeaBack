@@ -55,6 +55,7 @@ public class NftItemController {
     public ResponseEntity<NftItemResponse> deleteNftItem(@PathVariable("id") Long id) {
         nftItemService.deleteNftItem(id);
         return new ResponseEntity<>(
-                new NftItemResponse(true, null, "Updating NftItem successfully", 0, null, null), HttpStatus.OK);
+                new NftItemResponse(true, null, "Deleting NftItem successfully", 0, null, null), HttpStatus.OK);
     }
+
 }

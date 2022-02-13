@@ -51,6 +51,7 @@ public class User {
     @JsonManagedReference(value = "useroffers")
     private List<Offer> offers;
 
+    @JsonManagedReference(value = "userwallets")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "ownerId")
     private Wallet wallet;
