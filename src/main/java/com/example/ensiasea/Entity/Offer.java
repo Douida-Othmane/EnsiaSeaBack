@@ -5,12 +5,15 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "offers")
+@JsonInclude(value = Include.NON_NULL)
 public class Offer {
 
     @Id

@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.ensiasea.DTO.OfferDTO;
 import com.example.ensiasea.Entity.Offer;
 import com.example.ensiasea.Repository.OfferRepo;
+import com.example.ensiasea.Exception.ApiRequestException;
 import com.example.ensiasea.Exception.OfferNotFoundException;
 
 import org.springframework.beans.BeanUtils;
@@ -25,24 +26,37 @@ public class OfferService {
     }
 
     public Offer addOffer(OfferDTO offerDTO) {
-        Offer offer = new Offer();
-        BeanUtils.copyProperties(offerDTO, offer, "offerId", "offerMakerId", "offerNftItemId");
-        offer.setOfferMakerId(userService.findUserById(offerDTO.getOfferMakerId()));
-        offer.setOfferNftItemId(nftItemService.findNftItemByNftItemId(offerDTO.getOfferNftItemId()));
-        return offerRepo.save(offer);
+        try {
+            Offer offer = new Offer();
+            BeanUtils.copyProperties(offerDTO, offer, "offerId", "offerMakerId", "offerNftItemId");
+            offer.setOfferMakerId(userService.findUserById(offerDTO.getOfferMakerId()));
+            offer.setOfferNftItemId(nftItemService.findNftItemByNftItemId(offerDTO.getOfferNftItemId()));
+            return offerRepo.save(offer);
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Creating An Offer", exception.getMessage());
+        }
     }
 
     public List<Offer> findAllOffers() {
-        return offerRepo.findAll();
+        try {
+            return offerRepo.findAll();
+
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Getting All Offers", exception.getMessage());
+        }
     }
 
     public Offer findOfferByOfferId(Long OfferId) {
         return offerRepo.findOfferByOfferId(OfferId)
-                .orElseThrow(() -> new OfferNotFoundException("Offer by id " + OfferId + "was not found"));
+                .orElseThrow(() -> new ApiRequestException("Error While Getting An Offer"));
     }
 
     public void deleteOffer(Long OfferId) {
-        offerRepo.deleteById(OfferId);
+        try {
+            offerRepo.deleteById(OfferId);
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Deleting An Offer", exception.getMessage());
+        }
     }
 
 }

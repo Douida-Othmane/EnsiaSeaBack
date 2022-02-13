@@ -35,28 +35,44 @@ public class NFTitemService {
             return nftItemRepo.save(nftItem);
         } catch (Exception exception) {
 
-            throw new ApiRequestException("Error While Creating Nft Item");
+            throw new ApiRequestException("Error While Creating NftItem", exception.getMessage());
         }
     }
 
     public List<NFTitem> findAllNftItems() {
-        return nftItemRepo.findAll();
+        try {
+            return nftItemRepo.findAll();
+
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Getting All NftItems", exception.getMessage());
+        }
     }
 
     public NFTitem updateNftItem(NFTitemDTO nftItemDTO) {
+        try {
+            NFTitem nftItem = nftItemRepo.findNftItemByNftItemId(nftItemDTO.getNftItemId()).get();
+            BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemId", "nftItemOwnerId", "nftItemPicture",
+                    "creationDate");
+            nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
+            return nftItemRepo.save(nftItem);
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Updating All NftItems", exception.getMessage());
+        }
 
-        NFTitem nftItem = nftItemRepo.findNftItemByNftItemId(nftItemDTO.getNftItemId()).get();
-        BeanUtils.copyProperties(nftItemDTO, nftItem, "nftItemId", "nftItemOwnerId", "nftItemPicture", "creationDate");
-        nftItem.setNftItemOwnerId(userService.findUserById(nftItemDTO.getNftItemOwnerId()));
-        return nftItemRepo.save(nftItem);
     }
 
     public NFTitem findNftItemByNftItemId(Long id) {
+
         return nftItemRepo.findNftItemByNftItemId(id)
-                .orElseThrow(() -> new NftItemNotFoundException("Nft item by id " + id + " was not found"));
+                .orElseThrow(() -> new ApiRequestException("NftItem Not Found"));
     }
 
     public void deleteNftItem(Long id) {
-        nftItemRepo.deleteNftItemByNftItemId(id);
+        try {
+            nftItemRepo.deleteById(id);
+
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Deleting NftItem", exception.getMessage());
+        }
     }
 }

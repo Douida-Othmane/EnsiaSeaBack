@@ -2,6 +2,7 @@ package com.example.ensiasea.Controller;
 
 import com.example.ensiasea.DTO.NFTitemDTO;
 import com.example.ensiasea.Entity.NFTitem;
+import com.example.ensiasea.Response.NftItemResponse;
 import com.example.ensiasea.Service.NFTitemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,32 +21,40 @@ public class NftItemController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<NFTitem>> getAllNftItems() {
+    public ResponseEntity<NftItemResponse> getAllNftItems() {
         List<NFTitem> assets = nftItemService.findAllNftItems();
-        return new ResponseEntity<>(assets, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new NftItemResponse(true, null, "Getting All NftItems successfully", assets.size(), assets, null),
+                HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NFTitem> getNftItemByNftItemId(@PathVariable("id") Long id) {
+    public ResponseEntity<NftItemResponse> getNftItemByNftItemId(@PathVariable("id") Long id) {
         NFTitem asset = nftItemService.findNftItemByNftItemId(id);
-        return new ResponseEntity<>(asset, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new NftItemResponse(true, null, "Getting NftItem successfully", 0, null, asset),
+                HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<NFTitem> addNftItem(@RequestBody NFTitemDTO nftItem) {
+    public ResponseEntity<NftItemResponse> addNftItem(@RequestBody NFTitemDTO nftItem) {
         NFTitem newAsset = nftItemService.addNftItem(nftItem);
-        return new ResponseEntity<>(newAsset, HttpStatus.CREATED);
+        return new ResponseEntity<>(new NftItemResponse(true, null, "Creating NftItem successfully", 0, null, newAsset),
+                HttpStatus.CREATED);
     }
 
     @PutMapping()
-    public ResponseEntity<NFTitem> updateNftItem(@RequestBody NFTitemDTO nftItem) {
+    public ResponseEntity<NftItemResponse> updateNftItem(@RequestBody NFTitemDTO nftItem) {
         NFTitem updatedAsset = nftItemService.updateNftItem(nftItem);
-        return new ResponseEntity<>(updatedAsset, HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new NftItemResponse(true, null, "Updating NftItem successfully", 0, null, updatedAsset),
+                HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteNftItem(@PathVariable("id") Long id) {
+    public ResponseEntity<NftItemResponse> deleteNftItem(@PathVariable("id") Long id) {
         nftItemService.deleteNftItem(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(
+                new NftItemResponse(true, null, "Updating NftItem successfully", 0, null, null), HttpStatus.OK);
     }
 }

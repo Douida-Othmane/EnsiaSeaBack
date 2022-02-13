@@ -6,19 +6,19 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "nftItems")
+@JsonInclude(value = Include.NON_NULL)
 public class NFTitem {
 
     @Id

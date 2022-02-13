@@ -2,7 +2,6 @@ package com.example.ensiasea.Service;
 
 import com.example.ensiasea.Entity.User;
 import com.example.ensiasea.Exception.ApiRequestException;
-import com.example.ensiasea.Exception.UserNotFoundException;
 import com.example.ensiasea.Repository.UserRepo;
 import org.springframework.stereotype.Service;
 
@@ -28,21 +27,32 @@ public class UserService {
     }
 
     public List<User> findAllUsers() {
-        return userRepo.findAll();
+        try {
+            return userRepo.findAll();
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Getting All Users", exception.getMessage());
+        }
     }
 
     public User updateUser(User user) {
-        return userRepo.save(user);
+        try {
+            return userRepo.save(user);
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Updating User", exception.getMessage());
+        }
     }
 
     public User findUserById(Long id) {
         return userRepo.findUserByUserId(id)
-                .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
+                .orElseThrow(() -> new ApiRequestException("Error User Not Found"));
     }
 
-    public User deleteUser(Long id) {
-        User user = findUserById(id);
-        userRepo.deleteById(id);
-        return user;
+    public void deleteUser(Long id) {
+        try {
+            userRepo.deleteById(id);
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While Deleting User", exception.getMessage());
+        }
+
     }
 }

@@ -3,7 +3,7 @@ package com.example.ensiasea.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.ensiasea.Entity.User;
+import com.example.ensiasea.Entity.Offer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -12,23 +12,22 @@ import lombok.Data;
 
 @Data
 @JsonInclude(value = Include.NON_NULL)
-public class UserResponse extends Response {
+public class OfferResponse extends Response {
     private int count;
-    private List<User> data;
+    private List<Offer> data;
     @JsonIgnore
-    private User user;
+    private Offer offer;
 
-    public UserResponse(Boolean success, String messageError, String messageSuccess, int count, List<User> data,
-            User user) {
+    public OfferResponse(Boolean success, String messageError, String messageSuccess, int count, List<Offer> data,
+            Offer offer) {
         super(success, messageError, messageSuccess);
         this.count = count;
         this.data = data;
-        this.user = user;
-        if (this.data == null && this.user != null) {
+        this.offer = offer;
+        if (this.data == null && this.offer != null) {
             this.data = new ArrayList<>();
-            this.data.add(user);
+            this.data.add(offer);
             this.setCount(this.getData().size());
         }
     }
-
 }

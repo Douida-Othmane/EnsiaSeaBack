@@ -9,5 +9,4 @@ public interface NFTitemRepo extends JpaRepository<NFTitem, Long> {
 
     Optional<NFTitem> findNftItemByNftItemId(Long id);
 
-    void deleteNftItemByNftItemId(Long id);
 }
