@@ -3,7 +3,11 @@ package com.example.ensiasea.Service;
 import com.example.ensiasea.Entity.User;
 import com.example.ensiasea.Exception.ApiRequestException;
 import com.example.ensiasea.Repository.UserRepo;
+
+
 import org.springframework.stereotype.Service;
+
+
 
 import java.util.List;
 import java.util.UUID;
@@ -47,6 +51,14 @@ public class UserService {
                 .orElseThrow(() -> new ApiRequestException("Error User Not Found"));
     }
 
+    public org.springframework.security.core.userdetails.User findUserByEmail(String email){
+        User user = userRepo.findUserByEmail(email);
+        if(user == null){
+            throw new ApiRequestException("Error User Not Found");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),null);
+    }
+
     public void deleteUser(Long id) {
         try {
             userRepo.deleteById(id);
@@ -55,4 +67,5 @@ public class UserService {
         }
 
     }
+
 }

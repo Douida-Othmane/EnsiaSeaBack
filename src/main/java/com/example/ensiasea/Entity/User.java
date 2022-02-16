@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+
 import lombok.Data;
+import lombok.ToString;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Data
+@ToString
 @Table(name = "users")
 @JsonInclude(value = Include.NON_NULL)
 public class User {
