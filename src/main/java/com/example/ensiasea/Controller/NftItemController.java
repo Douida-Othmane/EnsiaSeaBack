@@ -1,7 +1,7 @@
 package com.example.ensiasea.Controller;
 
 import com.example.ensiasea.DTO.NFTitemDTO;
-import com.example.ensiasea.Entity.NFTitem;
+import com.example.ensiasea.Models.NFTitem;
 import com.example.ensiasea.Response.NftItemResponse;
 import com.example.ensiasea.Service.NFTitemService;
 import org.springframework.http.HttpStatus;

@@ -3,7 +3,7 @@ package com.example.ensiasea.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.ensiasea.Entity.PriceHistory;
+import com.example.ensiasea.Models.PriceHistory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,7 +20,8 @@ public class PriceHistoryResponse extends Response {
     @JsonIgnore
     private PriceHistory priceHistory;
 
-    public PriceHistoryResponse(Boolean success, String messageError, String messageSuccess, int count, List<PriceHistory> data,
+    public PriceHistoryResponse(Boolean success, String messageError, String messageSuccess, int count,
+            List<PriceHistory> data,
             PriceHistory priceHistory) {
         super(success, messageError, messageSuccess);
         this.count = count;

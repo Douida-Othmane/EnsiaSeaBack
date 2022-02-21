@@ -1,4 +1,4 @@
-package com.example.ensiasea.Entity;
+package com.example.ensiasea.Models;
 
 public enum ERole {
     ROLE_USER,

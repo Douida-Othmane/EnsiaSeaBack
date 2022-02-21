@@ -1,8 +1,8 @@
 package com.example.ensiasea.Service;
 
-import com.example.ensiasea.Entity.Role;
-import com.example.ensiasea.Entity.User;
 import com.example.ensiasea.Exception.ApiRequestException;
+import com.example.ensiasea.Models.Role;
+import com.example.ensiasea.Models.User;
 import com.example.ensiasea.Repository.RoleRepo;
 import com.example.ensiasea.Repository.UserRepo;
 
@@ -34,8 +34,8 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepo.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User Not Found");
         }
@@ -43,19 +43,32 @@ public class UserService implements UserDetailsService {
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName().toString()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 authorities);
     }
 
     public User addUser(User user) {
         try {
             user.setUserCode(UUID.randomUUID().toString());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return userRepo.save(user);
+            return this.saveUser(user);
         } catch (Exception exception) {
             throw new ApiRequestException("Error While Creating User", exception.getMessage());
         }
 
+    }
+
+    public User register(User user) {
+        try {
+            user.setUserCode(UUID.randomUUID().toString());
+            return this.saveUser(user);
+        } catch (Exception exception) {
+            throw new ApiRequestException("Error While registering User", exception.getMessage());
+        }
+    }
+
+    public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepo.save(user);
     }
 
     public List<User> findAllUsers() {

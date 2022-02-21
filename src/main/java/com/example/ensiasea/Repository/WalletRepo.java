@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import com.example.ensiasea.Entity.Wallet;
+import com.example.ensiasea.Models.Wallet;
 
 @Repository
 public interface WalletRepo extends JpaRepository<Wallet, Long> {

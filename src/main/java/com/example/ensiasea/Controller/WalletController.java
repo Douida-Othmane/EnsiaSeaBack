@@ -3,7 +3,7 @@ package com.example.ensiasea.Controller;
 import java.util.List;
 
 import com.example.ensiasea.DTO.WalletDTO;
-import com.example.ensiasea.Entity.Wallet;
+import com.example.ensiasea.Models.Wallet;
 import com.example.ensiasea.Response.WalletResponse;
 import com.example.ensiasea.Service.WalletService;
 

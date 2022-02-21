@@ -1,10 +1,9 @@
 package com.example.ensiasea.Service;
 
 import com.example.ensiasea.DTO.NFTitemDTO;
-import com.example.ensiasea.Entity.NFTitem;
 import com.example.ensiasea.Exception.ApiRequestException;
+import com.example.ensiasea.Models.NFTitem;
 import com.example.ensiasea.Repository.NFTitemRepo;
-
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 
 @Service
 @Transactional

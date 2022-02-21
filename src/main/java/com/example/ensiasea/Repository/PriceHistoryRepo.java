@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-import com.example.ensiasea.Entity.PriceHistory;
+import com.example.ensiasea.Models.PriceHistory;
 
 public interface PriceHistoryRepo extends JpaRepository<PriceHistory, Long> {
 

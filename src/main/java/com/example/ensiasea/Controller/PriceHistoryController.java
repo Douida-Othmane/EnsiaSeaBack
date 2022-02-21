@@ -1,7 +1,7 @@
 package com.example.ensiasea.Controller;
 
 import com.example.ensiasea.DTO.PriceHistoryDTO;
-import com.example.ensiasea.Entity.PriceHistory;
+import com.example.ensiasea.Models.PriceHistory;
 import com.example.ensiasea.Response.PriceHistoryResponse;
 import com.example.ensiasea.Service.PriceHistoryService;
 
@@ -20,45 +20,46 @@ public class PriceHistoryController {
     public PriceHistoryController(PriceHistoryService priceHistoryService) {
         this.priceHistoryService = priceHistoryService;
     }
-    
+
     @GetMapping
-    public ResponseEntity<PriceHistoryResponse> getAllPriceHistory(){
+    public ResponseEntity<PriceHistoryResponse> getAllPriceHistory() {
         List<PriceHistory> priceHistories = priceHistoryService.findAllPriceHistory();
         return new ResponseEntity<>(
-            new PriceHistoryResponse(true, null, "Getting all Price Histories successfully", priceHistories.size(), priceHistories, null)
-            ,HttpStatus.OK);
+                new PriceHistoryResponse(true, null, "Getting all Price Histories successfully", priceHistories.size(),
+                        priceHistories, null),
+                HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PriceHistoryResponse> getPriceHistoryByID(@PathVariable("id") Long id){
+    public ResponseEntity<PriceHistoryResponse> getPriceHistoryByID(@PathVariable("id") Long id) {
         PriceHistory priceHistory = priceHistoryService.findPriceHistoryById(id);
         return new ResponseEntity<>(
-            new PriceHistoryResponse(true, null, "Price History found", 0, null, priceHistory)
-            , HttpStatus.OK);
+                new PriceHistoryResponse(true, null, "Price History found", 0, null, priceHistory), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<PriceHistoryResponse> addPriceHistory(@RequestBody PriceHistoryDTO priceHistoryDTO){
+    public ResponseEntity<PriceHistoryResponse> addPriceHistory(@RequestBody PriceHistoryDTO priceHistoryDTO) {
         PriceHistory newPriceHistory = priceHistoryService.addPriceHistory(priceHistoryDTO);
         return new ResponseEntity<>(
-            new PriceHistoryResponse(true, null, "Price History added successfully", 0, null, newPriceHistory)
-            , HttpStatus.CREATED);
+                new PriceHistoryResponse(true, null, "Price History added successfully", 0, null, newPriceHistory),
+                HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<PriceHistoryResponse> updatePriceHistory(@RequestBody PriceHistoryDTO priceHistoryDTO){
+    public ResponseEntity<PriceHistoryResponse> updatePriceHistory(@RequestBody PriceHistoryDTO priceHistoryDTO) {
         PriceHistory updatedPriceHistory = priceHistoryService.updatePriceHistory(priceHistoryDTO);
         return new ResponseEntity<>(
-            new PriceHistoryResponse(true, null, "Price History updated successfully", 0, null, updatedPriceHistory)
-            , HttpStatus.CREATED);
+                new PriceHistoryResponse(true, null, "Price History updated successfully", 0, null,
+                        updatedPriceHistory),
+                HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PriceHistoryResponse> deletePriceHistory(@PathVariable("id") Long id){
+    public ResponseEntity<PriceHistoryResponse> deletePriceHistory(@PathVariable("id") Long id) {
         priceHistoryService.deletePriceHistory(id);
         return new ResponseEntity<>(
-            new PriceHistoryResponse(true, null, "Price History deleted successfully", 0, null, null)
-            , HttpStatus.OK);
+                new PriceHistoryResponse(true, null, "Price History deleted successfully", 0, null, null),
+                HttpStatus.OK);
     }
 
 }

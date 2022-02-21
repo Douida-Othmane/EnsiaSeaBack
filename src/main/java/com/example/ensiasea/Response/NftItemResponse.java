@@ -3,7 +3,7 @@ package com.example.ensiasea.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.ensiasea.Entity.NFTitem;
+import com.example.ensiasea.Models.NFTitem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

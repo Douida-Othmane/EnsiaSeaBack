@@ -5,8 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.example.ensiasea.DTO.WalletDTO;
-import com.example.ensiasea.Entity.Wallet;
 import com.example.ensiasea.Exception.ApiRequestException;
+import com.example.ensiasea.Models.Wallet;
 import com.example.ensiasea.Repository.WalletRepo;
 
 import org.springframework.beans.BeanUtils;

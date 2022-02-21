@@ -3,7 +3,7 @@ package com.example.ensiasea.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.ensiasea.Entity.User;
+import com.example.ensiasea.Models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,7 +20,8 @@ public class AuthenticaAppResponse extends Response {
     @JsonIgnore
     private User authentica;
 
-    public AuthenticaAppResponse(Boolean success, String messageError, String messageSuccess, int count, List<User> data,
+    public AuthenticaAppResponse(Boolean success, String messageError, String messageSuccess, int count,
+            List<User> data,
             User authentica) {
         super(success, messageError, messageSuccess);
         this.count = count;

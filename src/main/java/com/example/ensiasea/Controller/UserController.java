@@ -1,6 +1,6 @@
 package com.example.ensiasea.Controller;
 
-import com.example.ensiasea.Entity.User;
+import com.example.ensiasea.Models.User;
 import com.example.ensiasea.Response.UserResponse;
 import com.example.ensiasea.Service.UserService;
 

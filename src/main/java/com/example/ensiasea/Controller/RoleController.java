@@ -1,7 +1,7 @@
 package com.example.ensiasea.Controller;
 
 import com.example.ensiasea.DTO.RoleToUserDTO;
-import com.example.ensiasea.Entity.Role;
+import com.example.ensiasea.Models.Role;
 
 import org.springframework.http.ResponseEntity;
 import com.example.ensiasea.Service.UserService;

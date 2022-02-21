@@ -1,4 +1,4 @@
-package com.example.ensiasea.Entity;
+package com.example.ensiasea.Models;
 
 import javax.persistence.*;
 

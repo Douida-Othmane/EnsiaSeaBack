@@ -1,4 +1,4 @@
-package com.example.ensiasea.Entity;
+package com.example.ensiasea.Models;
 
 import javax.persistence.*;
 
@@ -39,7 +39,7 @@ public class User {
     @Column(nullable = false, length = 60)
     private String password;
 
-    @Column(nullable = false, length = 500)
+    @Column(length = 500)
     private String userDescription;
 
     @Column(nullable = false, length = 60)
@@ -65,5 +65,11 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
 }

@@ -1,12 +1,12 @@
 package com.example.ensiasea.Repository;
 
-import com.example.ensiasea.Entity.User;
-
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+
+import com.example.ensiasea.Models.User;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {

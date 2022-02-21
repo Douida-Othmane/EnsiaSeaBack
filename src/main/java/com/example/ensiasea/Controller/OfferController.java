@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.ensiasea.Service.OfferService;
 import com.example.ensiasea.DTO.OfferDTO;
-import com.example.ensiasea.Entity.Offer;
+import com.example.ensiasea.Models.Offer;
 import com.example.ensiasea.Response.OfferResponse;
 
 import org.springframework.http.HttpStatus;
