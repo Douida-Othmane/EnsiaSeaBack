@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +16,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.ensiasea.Constants.SecurityConstants;
+import com.example.ensiasea.Security.JWT.JwtUtil;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,11 +30,16 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
-        String authorizationHeader = request.getHeader(SecurityConstants.HEADER_NAME);
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        if (request.getServletPath().equals("/api/v1/auth/register")
+                || request.getServletPath().equals("/api/v1/auth/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        String authorizationHeader = JwtUtil.getJwtFromCookies(request);
+        if (authorizationHeader != null) {
             try {
-                String token = authorizationHeader.substring("Bearer ".length());
+                System.out.println(authorizationHeader);
+                String token = authorizationHeader;
                 Algorithm algorithm = Algorithm.HMAC256(SecurityConstants.KEY.getBytes());
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(token);
@@ -49,7 +56,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
             } catch (Exception exception) {
                 System.out.print(exception);
-                System.out.println("Error While Logging");
+                filterChain.doFilter(request, response);
             }
         } else {
             filterChain.doFilter(request, response);

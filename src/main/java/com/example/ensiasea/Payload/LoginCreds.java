@@ -1,4 +1,4 @@
-package com.example.ensiasea.DTO;
+package com.example.ensiasea.Payload;
 
 import lombok.Data;
 

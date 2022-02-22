@@ -6,13 +6,14 @@ import java.util.stream.Collectors;
 import javax.imageio.IIOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.ensiasea.Constants.SecurityConstants;
-import com.example.ensiasea.DTO.LoginCreds;
+import com.example.ensiasea.Payload.LoginCreds;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,7 +53,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                         FilterChain chain,
                         Authentication authResult) throws IIOException, ServletException {
-
+                System.out.println("Authentication successful");
                 Date exp = new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME);
                 User user = (User) authResult.getPrincipal();
 
@@ -65,13 +66,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                                 user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                                                                 .collect(Collectors.toList()))
                                 .sign(algorithm);
-                String refresh_token = JWT.create().withSubject(user.getUsername())
-                                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                                .withIssuer(request.getRequestURL().toString())
-                                .sign(algorithm);
-
                 response.setHeader("access_token", access_token);
-                response.setHeader("refresh_token", refresh_token);
+                Cookie cookie = new Cookie("token", access_token);
+                cookie.setHttpOnly(true);
+                cookie.setPath("/api/v1/");
+                response.addCookie(cookie);
         }
 
 }
