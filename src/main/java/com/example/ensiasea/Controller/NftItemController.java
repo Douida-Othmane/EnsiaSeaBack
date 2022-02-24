@@ -5,14 +5,13 @@ import com.example.ensiasea.Models.NFTitem;
 import com.example.ensiasea.Response.NftItemResponse;
 import com.example.ensiasea.Service.NFTitemService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.jsonwebtoken.io.IOException;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
 @RestController
@@ -28,11 +27,7 @@ public class NftItemController {
     @PostMapping("/upload")
     public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile file)
             throws IOException, java.io.IOException {
-        File myFile = new File(file.getOriginalFilename());
-        myFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(myFile);
-        fos.write(file.getBytes());
-        fos.close();
+        nftItemService.uploadAssets(file);
         return new ResponseEntity<Object>("The File Uploaded Successfully", HttpStatus.OK);
     }
 
@@ -52,8 +47,10 @@ public class NftItemController {
                 HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<NftItemResponse> addNftItem(@RequestBody NFTitemDTO nftItem) {
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<NftItemResponse> addNftItem(@RequestPart("nftItemPicture") MultipartFile picture,
+            @RequestPart NFTitemDTO nftItem) throws java.io.IOException {
+        nftItem.setNftItemPicture(picture);
         NFTitem newAsset = nftItemService.addNftItem(nftItem);
         return new ResponseEntity<>(new NftItemResponse(true, null, "Creating NftItem successfully", 0, null, newAsset),
                 HttpStatus.CREATED);

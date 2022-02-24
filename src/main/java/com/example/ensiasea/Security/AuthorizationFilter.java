@@ -7,7 +7,6 @@ import java.util.Collection;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +17,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.ensiasea.Constants.SecurityConstants;
 import com.example.ensiasea.Security.JWT.JwtUtil;
 
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,7 +36,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         String authorizationHeader = JwtUtil.getJwtFromCookies(request);
         if (authorizationHeader != null) {
             try {
-                System.out.println(authorizationHeader);
                 String token = authorizationHeader;
                 Algorithm algorithm = Algorithm.HMAC256(SecurityConstants.KEY.getBytes());
                 JWTVerifier verifier = JWT.require(algorithm).build();
