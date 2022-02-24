@@ -15,6 +15,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.ensiasea.Constants.SecurityConstants;
+import com.example.ensiasea.Exception.ApiRequestException;
 import com.example.ensiasea.Security.JWT.JwtUtil;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +31,15 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         if (request.getServletPath().equals("/api/v1/auth/register")
                 || request.getServletPath().equals("/api/v1/auth/login")) {
+
+            String token = JwtUtil.getJwtFromCookies(request);
+
+            if (JwtUtil.validateJwtToken(token)) {
+                throw new ApiRequestException("Error User Already Login", "Error User Already Login");
+            } else {
+
+                JwtUtil.getCleanJwtCookie();
+            }
             filterChain.doFilter(request, response);
             return;
         }
@@ -52,7 +62,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
 
             } catch (Exception exception) {
-                System.out.print(exception);
                 filterChain.doFilter(request, response);
             }
         } else {

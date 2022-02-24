@@ -33,7 +33,8 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User Not Found");
+            throw new ApiRequestException("Error User Not Found", "Error User Not Found");
+
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(role -> {
@@ -87,17 +88,6 @@ public class UserService implements UserDetailsService {
         return userRepo.findUserByUserId(id)
                 .orElseThrow(() -> new ApiRequestException("Error User Not Found"));
     }
-
-    // public org.springframework.security.core.userdetails.User
-    // findUserByEmail(String email) {
-    // User user = userRepo.findUserByEmail(email);
-    // if (user == null) {
-    // throw new ApiRequestException("Error User Not Found");
-    // }
-    // return new
-    // org.springframework.security.core.userdetails.User(user.getEmail(),
-    // user.getPassword(), null);
-    // }
 
     public void deleteUser(Long id) {
         try {

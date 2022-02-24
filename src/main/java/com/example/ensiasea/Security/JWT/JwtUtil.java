@@ -72,7 +72,7 @@ public class JwtUtil {
         return email;
     }
 
-    public boolean validateJwtToken(String authToken) {
+    public static boolean validateJwtToken(String authToken) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(SecurityConstants.KEY.getBytes());
             JWTVerifier verifier = JWT.require(algorithm).build();
@@ -87,7 +87,6 @@ public class JwtUtil {
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error JWTUtil");
         }
         return false;
     }
