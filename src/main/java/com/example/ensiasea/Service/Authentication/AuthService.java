@@ -3,7 +3,6 @@ package com.example.ensiasea.Service.Authentication;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.ensiasea.Constants.SecurityConstants;
 import com.example.ensiasea.Models.User;
 import com.example.ensiasea.Payload.LoginCreds;
@@ -18,7 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import lombok.RequiredArgsConstructor;
 
