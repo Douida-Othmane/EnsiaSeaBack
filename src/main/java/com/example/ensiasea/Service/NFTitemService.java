@@ -2,8 +2,12 @@ package com.example.ensiasea.Service;
 
 import com.example.ensiasea.DTO.NFTitemDTO;
 import com.example.ensiasea.Exception.ApiRequestException;
+import com.example.ensiasea.Models.AssetP;
 import com.example.ensiasea.Models.NFTitem;
+import com.example.ensiasea.Models.User;
+import com.example.ensiasea.Payload.transferOwner;
 import com.example.ensiasea.Repository.NFTitemRepo;
+import com.example.ensiasea.Repository.UserRepo;
 import com.example.ensiasea.Utils.CheckSum;
 
 import org.springframework.beans.BeanUtils;
@@ -23,11 +27,13 @@ import java.util.List;
 public class NFTitemService {
     private final NFTitemRepo nftItemRepo;
     private final UserService userService;
+    private final UserRepo userRepo;
 
     @Autowired
-    public NFTitemService(NFTitemRepo nftItemRepo, UserService userService) {
+    public NFTitemService(NFTitemRepo nftItemRepo, UserService userService, UserRepo userRepo) {
         this.nftItemRepo = nftItemRepo;
         this.userService = userService;
+        this.userRepo = userRepo;
     }
 
     public NFTitem addNftItem(NFTitemDTO nftItemDTO) throws IOException {
@@ -47,7 +53,13 @@ public class NFTitemService {
             fos.write(nftItemDTO.getNftItemPicture().getBytes());
             fos.close();
             String checksum = CheckSum.getFileChecksum(myFile);
-            System.out.println(checksum);
+            // Path
+            nftItem.setNftItemPicture(System.getProperty("user.dir") + "/assets/" +
+                    nameFile);
+            // * Create Asset in t he blockchain
+            RestClient.callCreateAsset(new AssetP(nameFile.substring(0, nameFile.length() - 4), "Image",
+                    nftItem.getNftItemOwnerId().getUsername(),
+                    checksum, nftItem.getNftItemPrice()));
             return nftItemRepo.save(nftItem);
 
         } catch (Exception exception) {
@@ -55,6 +67,20 @@ public class NFTitemService {
             throw new ApiRequestException("Error While Creating NftItem", exception.getMessage());
         }
 
+    }
+
+    public NFTitem transferOwnerShip(Long assetId, transferOwner transferowner) {
+        NFTitem asset = this.findNftItemByNftItemId(assetId);
+        System.out.println(asset.getNftItemName());
+        User newOwner = userRepo.findByUsername(transferowner.getNewOwner());
+        if (newOwner == null) {
+            throw new ApiRequestException("Can't Transfer to a user that doesn't exist");
+        }
+        asset.setNftItemOwnerId(newOwner);
+        System.out.println(asset.getNftItemPicture().split("/")[6]);
+        RestClient.transferOwner(asset.getNftItemPicture().split("/")[6].substring(0,
+                asset.getNftItemPicture().split("/")[6].length() - 4), transferowner);
+        return asset;
     }
 
     public List<NFTitem> findAllNftItems() {
@@ -96,8 +122,10 @@ public class NFTitemService {
 
     public void deleteNftItem(Long id) {
         try {
+            String assetId = this.findNftItemByNftItemId(id).getNftItemPicture().split("/")[6].substring(0,
+                    this.findNftItemByNftItemId(id).getNftItemPicture().split("/")[6].length() - 4);
             nftItemRepo.deleteById(id);
-
+            RestClient.callDeleteAssetById(assetId);
         } catch (Exception exception) {
             throw new ApiRequestException("Error While Deleting NftItem", exception.getMessage());
         }

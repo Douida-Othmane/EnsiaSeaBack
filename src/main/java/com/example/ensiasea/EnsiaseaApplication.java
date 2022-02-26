@@ -16,5 +16,4 @@ public class EnsiaseaApplication {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

@@ -2,6 +2,7 @@ package com.example.ensiasea.Controller;
 
 import com.example.ensiasea.DTO.NFTitemDTO;
 import com.example.ensiasea.Models.NFTitem;
+import com.example.ensiasea.Payload.transferOwner;
 import com.example.ensiasea.Response.NftItemResponse;
 import com.example.ensiasea.Service.NFTitemService;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,16 @@ public class NftItemController {
         nftItem.setNftItemPicture(picture);
         NFTitem newAsset = nftItemService.addNftItem(nftItem);
         return new ResponseEntity<>(new NftItemResponse(true, null, "Creating NftItem successfully", 0, null, newAsset),
+                HttpStatus.CREATED);
+    }
+
+    @PutMapping("/transfer/{assetId}")
+    public ResponseEntity<NftItemResponse> transferOwnerShip(@PathVariable Long assetId,
+            @RequestBody transferOwner transferowner) {
+
+        NFTitem asset = nftItemService.transferOwnerShip(assetId, transferowner);
+        return new ResponseEntity<>(
+                new NftItemResponse(true, null, "Transfer ownership NftItem successfully", 0, null, asset),
                 HttpStatus.CREATED);
     }
 
